@@ -22,14 +22,17 @@ async function imageToBase64(image: string): Promise<{ data: string; mimeType: s
     return { data: image.slice(comma + 1), mimeType: image.slice(5, semi) };
   }
 
-  // local public file — read from disk to avoid server-side fetch of relative URLs
+  // relative path — public/ dir is on CDN on Vercel (not in serverless fs), so fetch via HTTP
   if (image.startsWith("/")) {
-    const { readFile } = await import("fs/promises");
-    const { join } = await import("path");
-    const filePath = join(process.cwd(), "public", image);
-    const buf = await readFile(filePath);
-    const ext = image.split(".").pop()?.toLowerCase() ?? "jpg";
-    return { data: buf.toString("base64"), mimeType: MIME[ext] ?? "image/jpeg" };
+    // VERCEL_URL is set automatically by Vercel; fall back to localhost for dev
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000");
+    const res = await fetch(`${baseUrl}${image}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${image}`);
+    const buf = await res.arrayBuffer();
+    const mimeType = res.headers.get("content-type")?.split(";")[0] ?? "image/jpeg";
+    return { data: Buffer.from(buf).toString("base64"), mimeType };
   }
 
   // external URL (Unsplash etc.)
