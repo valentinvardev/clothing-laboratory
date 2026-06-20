@@ -20,70 +20,50 @@ export const CATEGORY_COLORS: Record<GarmentCategory, string> = {
   "one-pieces": "bg-rose-100 text-rose-700",
 };
 
+const CDN = "?w=480&h=600&fit=crop&auto=format";
+
 export const sampleGarments: Garment[] = [
   {
     id: "1",
-    name: "Classic White Tee",
+    name: "Cream Knit Sweater",
     category: "tops",
-    imageUrl:
-      "https://placehold.co/400x500/f8fafc/475569?text=White+T-Shirt",
-    description: "Essential everyday crew neck tee",
+    imageUrl: `https://images.unsplash.com/photo-1621198059871-0d5f9b449233${CDN}`,
+    description: "Cozy oversized knit pullover",
   },
   {
     id: "2",
-    name: "Slim Black Jeans",
+    name: "Blue Denim Jeans",
     category: "bottoms",
-    imageUrl:
-      "https://placehold.co/400x500/1e293b/94a3b8?text=Black+Jeans",
-    description: "Versatile slim-fit denim",
+    imageUrl: `https://images.unsplash.com/photo-1617178388553-a9d022974a5c${CDN}`,
+    description: "Classic straight-fit blue denim",
   },
   {
     id: "3",
-    name: "Floral Sundress",
-    category: "one-pieces",
-    imageUrl:
-      "https://placehold.co/400x500/fdf4ff/a21caf?text=Floral+Dress",
-    description: "Light summer floral pattern",
+    name: "Yellow Graphic Tee",
+    category: "tops",
+    imageUrl: `https://images.unsplash.com/photo-1696086152504-4843b2106ab4${CDN}`,
+    description: "Relaxed cotton graphic t-shirt",
   },
   {
     id: "4",
-    name: "Oversized Hoodie",
+    name: "Pink Tie Blouse",
     category: "tops",
-    imageUrl:
-      "https://placehold.co/400x500/f1f5f9/475569?text=Grey+Hoodie",
-    description: "Cozy heavyweight fleece",
+    imageUrl: `https://images.unsplash.com/photo-1777462985111-9da64fb2e6e6${CDN}`,
+    description: "Light pink blouse with tie waist",
   },
   {
     id: "5",
-    name: "Tailored Blazer",
+    name: "Floral Strap Top",
     category: "tops",
-    imageUrl:
-      "https://placehold.co/400x500/1e3a5f/93c5fd?text=Navy+Blazer",
-    description: "Smart navy single-button blazer",
+    imageUrl: `https://images.unsplash.com/photo-1584061516874-ed56f46d8e13${CDN}`,
+    description: "Black & white floral spaghetti strap",
   },
   {
     id: "6",
-    name: "Linen Shorts",
-    category: "bottoms",
-    imageUrl:
-      "https://placehold.co/400x500/fef9c3/92400e?text=Khaki+Shorts",
-    description: "Relaxed summer linen shorts",
-  },
-  {
-    id: "7",
-    name: "Little Black Dress",
-    category: "one-pieces",
-    imageUrl:
-      "https://placehold.co/400x500/171717/a3a3a3?text=Black+Dress",
-    description: "Timeless evening mini dress",
-  },
-  {
-    id: "8",
-    name: "Denim Jacket",
+    name: "Classic Black Tee",
     category: "tops",
-    imageUrl:
-      "https://placehold.co/400x500/dbeafe/1d4ed8?text=Denim+Jacket",
-    description: "Classic light-wash denim jacket",
+    imageUrl: `https://images.unsplash.com/photo-1696086152513-c74dc1d4b135${CDN}`,
+    description: "Essential everyday black t-shirt",
   },
 ];
 
