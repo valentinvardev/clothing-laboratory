@@ -2,6 +2,18 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
+
+async function urlToBase64(url: string): Promise<string> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${res.status} fetching ${url}`);
+  const blob = await res.blob();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { api } from "~/trpc/react";
@@ -352,7 +364,13 @@ function SetupView({
               <button
                 key={model.id}
                 type="button"
-                onClick={() => setPersonImage(model.imageUrl)}
+                onClick={async () => {
+                  try {
+                    setPersonImage(await urlToBase64(model.imageUrl));
+                  } catch {
+                    setPersonImage(model.imageUrl);
+                  }
+                }}
                 className={`relative aspect-[2/3] overflow-hidden rounded-lg border-2 transition-all ${
                   personImage === model.imageUrl
                     ? "border-rose-500 shadow-sm"
@@ -373,7 +391,7 @@ function SetupView({
           <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
             O subí la tuya
           </p>
-          {personImage && !personImage.startsWith("data:") ? (
+          {personImage ? (
             <div className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100">
               <Image
                 src={personImage}
